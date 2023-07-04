@@ -14,7 +14,12 @@ class ComplaintController extends Controller
      */
     public function index()
     {
-        //
+        $complaints = Complaint::get();
+        return response()->json([
+            'data' => $complaints,
+            'message' => 'Berhasil mendapatkan data pengaduan',
+            'success' => true
+        ]);
     }
 
     /**
@@ -35,7 +40,13 @@ class ComplaintController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        $complaint = Complaint::create($input);
+        return response()->json([
+            'data' => $complaint,
+            'message' => 'Berhasil menyimpan pengaduan baru',
+            'success' => true
+        ]);
     }
 
     /**
@@ -46,7 +57,11 @@ class ComplaintController extends Controller
      */
     public function show(Complaint $complaint)
     {
-        //
+        return response()->json([
+            'data' => $complaint,
+            'message' => 'Berhasil mendapatkan pengaduan',
+            'success' => true
+        ]);
     }
 
     /**
@@ -68,8 +83,14 @@ class ComplaintController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Complaint $complaint)
-    {
-        //
+    { 
+        $input = $request->all();
+        $complaint->update($input);
+        return response()->json([
+            'data' => $complaint,
+            'message' => 'Berhasil mengubah pengaduan',
+            'success' => true
+        ]);
     }
 
     /**
@@ -80,6 +101,10 @@ class ComplaintController extends Controller
      */
     public function destroy(Complaint $complaint)
     {
-        //
+        $complaint->delete();
+        return response()->json([
+            'message' => 'Berhasil menghapus pengaduan',
+            'success' => true
+        ]);
     }
 }

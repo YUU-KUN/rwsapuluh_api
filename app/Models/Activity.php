@@ -11,4 +11,13 @@ class Activity extends Model
     use HasFactory, UUID;
     protected $table = 'activities';
     protected $fillable = ['title', 'description', 'image'];
+    protected $appends = ['image_url'];
+    
+    public function Categories() {
+        return $this->hasMany(ActivityCategory::class);
+    }
+
+    public function getImageUrlAttribute() {
+        return url('/') . '/activity/' . $this->image;
+    }
 }

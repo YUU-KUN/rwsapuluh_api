@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UUID;
 
-class News extends Model
+class Organization extends Model
 {
     use HasFactory, UUID;
-    protected $table = 'news';
-    protected $fillable = ['title', 'description', 'image', 'category'];
+    protected $table = 'organizations';
+    protected $fillable = ['name', 'position'];
 }
