@@ -41,27 +41,75 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// Activity
+Route::get('top-activity', [ActivityController::class, 'getTopActivity']);
+Route::get('activity', [ActivityController::class, 'index']);
+Route::get('activity/{id}', [ActivityController::class, 'show']);
+Route::get('top-achievement', [AchievementController::class, 'getTopAchievement']);
+Route::get('citizen-statistic', [CitizenController::class, 'countCitizen']);
+
+// Achievement
+Route::resource('achievement', AchievementController::class);
+
+// Video
+Route::resource('video', VideoController::class);
+
+// Category
+Route::resource('category', CategoryController::class);
+
+// Service
+Route::resource('service', ServiceController::class);
+
+// Message
+Route::resource('message', MessageController::class);
+
+// Complaint
+Route::resource('complaint', ComplaintController::class);
+
+// Citizen
+Route::resource('citizen', CitizenController::class);
+
+// Vision
+Route::resource('vision', VisionController::class);
+
+// Mission
+Route::resource('mission', MissionController::class);
+
+// History
+Route::resource('history', HistoryController::class);
+
+// Contact
+Route::resource('contact', ContactController::class);
+
+// Organization
+Route::resource('organization', OrganizationController::class);
+
+// Institution
+Route::resource('institution', InstitutionController::class);
+
+// Institution Structure
+Route::resource('institution-structure', InstitutionStructureController::class);
+
+// Insittution Gallery
+Route::resource('institution-gallery', InstitutionGalleryController::class);
+
 // Only Authenticated User can Access
 Route::middleware(['auth:api'])->group(function () {
-    Route::get('top-activity', [ActivityController::class, 'getTopActivity']);
-    Route::resource('activity', ActivityController::class);
-    Route::get('top-achievement', [AchievementController::class, 'getTopAchievement']);
-    Route::resource('achievement', AchievementController::class);
-    Route::resource('video', VideoController::class);
-    Route::resource('category', CategoryController::class);
-    Route::resource('service', ServiceController::class);
-    Route::resource('news', NewsController::class);
-    Route::resource('message', MessageController::class);
-    Route::resource('complaint', ComplaintController::class);
+    Route::resource('activity', ActivityController::class)->except(['index', 'show']);
+    Route::resource('achievement', AchievementController::class)->except(['index', 'show']);
+    Route::resource('video', VideoController::class)->except(['index', 'show']);
+    Route::resource('category', CategoryController::class)->except(['index', 'show']);
+    Route::resource('service', ServiceController::class)->except(['index', 'show']);
+    Route::resource('message', MessageController::class)->except(['index', 'show']);
+    Route::resource('complaint', ComplaintController::class)->except(['index', 'show']);
     Route::post('import-citizen', [CitizenController::class, 'import']);
-    Route::get('citizen-statistic', [CitizenController::class, 'countCitizen']);
-    Route::resource('citizen', CitizenController::class);
-    Route::resource('vision', VisionController::class);
-    Route::resource('mission', MissionController::class);
-    Route::resource('history', HistoryController::class);
-    Route::resource('contact', ContactController::class);
-    Route::resource('organization', OrganizationController::class);
-    Route::resource('institution', InstitutionController::class);
-    Route::resource('institution-structure', InstitutionStructureController::class);
-    Route::resource('institution-gallery', InstitutionGalleryController::class);
+    Route::resource('citizen', CitizenController::class)->except(['index', 'show']);
+    Route::resource('vision', VisionController::class)->except(['index', 'show']);
+    Route::resource('mission', MissionController::class)->except(['index', 'show']);
+    Route::resource('history', HistoryController::class)->except(['index', 'show']);
+    Route::resource('contact', ContactController::class)->except(['index', 'show']);
+    Route::resource('organization', OrganizationController::class)->except(['index', 'show']);
+    Route::resource('institution', InstitutionController::class)->except(['index', 'show']);
+    Route::resource('institution-structure', InstitutionStructureController::class)->except(['index', 'show']);
+    Route::resource('institution-gallery', InstitutionGalleryController::class)->except(['index', 'show']);
 });
