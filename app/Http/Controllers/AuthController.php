@@ -35,13 +35,12 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $data = $request->validate([
-            'email' => 'email|required',
-            'password' => 'required'
+            'email' => 'email|required|string',
+            'password' => 'required|string'
         ]);
 
         if (!Auth::attempt($data)) {
-            return response(['error_message' => 'Incorrect Details. 
-            Please try again']);
+            return response(['message' => 'Email atau Password tidak cocok'], 401);
         }
 
         $token = auth()->user()->createToken('API Token')->accessToken;
