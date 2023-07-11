@@ -24,7 +24,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
+            SuperAdminSeeder::class,
             CategorySeeder::class,
+            MissionSeeder::class,
+            VisionSeeder::class,
+            ServiceSeeder::class,
         ]);
     }
 }
