@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use File;
 
 class OrganizationController extends Controller
 {
@@ -40,7 +41,15 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
-        $organization = Organization::create($request->all());
+        $input = $request->all();
+
+        if ($request->hasFile('photo')) {
+            $filename = time() . '.' . $request->photo->getClientOriginalExtension();
+            $request->photo->move(public_path('organization'), $filename);
+            $input['photo'] = $filename;
+        }
+        $organization = Organization::create($input);
+
         return response()->json([
             'success' => true,
             'message' => 'Success creating organization',
@@ -79,7 +88,20 @@ class OrganizationController extends Controller
      */
     public function update(Request $request, Organization $organization)
     { 
-        $organization->update($request->all());
+        $input = $request->all();
+        $input['photo'] = $organization->photo;
+        if ($request->hasFile('photo')) {
+            $filename = time() . '.' . $request->photo->getClientOriginalExtension();
+            $request->photo->move(public_path('organization'), $filename);
+            $input['photo'] = $filename;
+
+            // remove old photo
+            if ($organization->photo) {
+                unlink(public_path('organization') . '/' . $organization->photo);
+                File::delete(public_path('organization') . '/' . $organization->photo);
+            }
+        }
+        $organization->update($input);
         return response()->json([
             'success' => true,
             'message' => 'Success updating organization',
@@ -96,6 +118,11 @@ class OrganizationController extends Controller
     public function destroy(Organization $organization)
     {
         $organization->delete();
+        // delete photo
+        if ($organization->photo) {
+            unlink(public_path('organization') . '/' . $organization->photo);
+            File::delete(public_path('organization') . '/' . $organization->photo);
+        }
         return response()->json([
             'success' => true,
             'message' => 'Success deleting organization',

@@ -10,5 +10,11 @@ class Organization extends Model
 {
     use HasFactory, UUID;
     protected $table = 'organizations';
-    protected $fillable = ['name', 'position'];
+    protected $fillable = ['name', 'position', 'photo'];
+    protected $appends = ['photo_url'];
+
+    public function getPhotoUrlAttribute()
+    {
+        return url('/') . '/organization/' . $this->photo;
+    }
 }
