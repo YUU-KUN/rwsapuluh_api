@@ -99,6 +99,11 @@ class MissionController extends Controller
      */
     public function destroy(Mission $mission)
     {
-        //
+        $mission->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Success deleting mission',
+            'data' => $mission
+        ]);
     }
 }
