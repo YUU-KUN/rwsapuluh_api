@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\History;
 use Illuminate\Http\Request;
+use File;
 
 class HistoryController extends Controller
 {
@@ -88,20 +89,20 @@ class HistoryController extends Controller
     {
         $input = $request->all();
         if ($request->hasFile('photo')) {   
-            $filename = time().'-'.$request->photo->getClientOriginalName();
+            $filename = time().'.'.$request->photo->getClientOriginalExtension();
             $request->photo->move(public_path('history'), $filename);
             $input['photo'] = $filename;
 
             // remove old photo
-            // if ($history->photo) {
-            //     $old_photo = $history->photo;
-            //     $filepath = public_path() . '/history/' . DIRECTORY_SEPARATOR . $history->photo;
-            //     try {
-            //         File::delete($filepath);
-            //     } catch (FileNotFoundException $e) {
-            //         // File sudah dihapus/tidak ada
-            //     }
-            // }
+            if (isset($history->photo)) {
+                $old_photo = $history->photo;
+                $filepath = public_path('history') . '/' . $history->photo;
+                try {
+                    File::delete($filepath);
+                } catch (FileNotFoundException $e) {
+                    // File sudah dihapus/tidak ada
+                }
+            }
         }
         $history->update($input);
         return response()->json([
