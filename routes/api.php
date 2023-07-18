@@ -21,6 +21,7 @@ use App\Http\Controllers\InstitutionGalleryController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\SocialMediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,50 +49,22 @@ Route::middleware('cors')->group(function() {
     Route::get('top-achievement', [AchievementController::class, 'getTopAchievement']);
     Route::get('citizen-statistic', [CitizenController::class, 'countCitizen']);
     
-    // Achievement
-    Route::resource('achievement', AchievementController::class);
-    
-    // Video
-    Route::resource('video', VideoController::class);
-    
-    // Category
-    Route::resource('category', CategoryController::class);
-    
-    // Service
-    Route::resource('service', ServiceController::class);
-    
-    // Message
-    Route::resource('message', MessageController::class);
-    
-    // Complaint
-    Route::resource('complaint', ComplaintController::class);
-    
-    // Citizen
-    Route::resource('citizen', CitizenController::class);
-    
-    // Vision
-    Route::resource('vision', VisionController::class);
-    
-    // Mission
-    Route::resource('mission', MissionController::class);
-    
-    // History
-    Route::resource('history', HistoryController::class);
-    
-    // Contact
-    Route::resource('contact', ContactController::class);
-    
-    // Organization
-    Route::resource('organization', OrganizationController::class);
-    
-    // Institution
-    Route::resource('institution', InstitutionController::class);
-    
-    // Institution Structure
-    Route::resource('institution-structure', InstitutionStructureController::class);
-    
-    // Insittution Gallery
-    Route::resource('institution-gallery', InstitutionGalleryController::class);
+    Route::resource('achievement', AchievementController::class); // Achievement
+    Route::resource('video', VideoController::class); // Video
+    Route::resource('category', CategoryController::class); // Category
+    Route::resource('service', ServiceController::class); // Service
+    Route::resource('message', MessageController::class); // Message
+    Route::resource('complaint', ComplaintController::class); // Complaint
+    Route::resource('citizen', CitizenController::class); // Citizen
+    Route::resource('vision', VisionController::class); // Vision
+    Route::resource('mission', MissionController::class); // Mission
+    Route::resource('history', HistoryController::class); // History
+    Route::resource('contact', ContactController::class); // Contact
+    Route::resource('organization', OrganizationController::class); // Organization
+    Route::resource('institution', InstitutionController::class); // Institution
+    Route::resource('institution-structure', InstitutionStructureController::class); // Institution Structure
+    Route::resource('institution-gallery', InstitutionGalleryController::class); // Insittution Gallery
+    Route::resource('social-media', SocialMediaController::class); // Social Media
     
     // Only SuperAdmin can Access
     Route::middleware(['auth:api', 'superadmin'])->group(function () {
@@ -117,6 +90,7 @@ Route::middleware('cors')->group(function() {
         Route::resource('institution', InstitutionController::class)->except(['index', 'show']);
         Route::resource('institution-structure', InstitutionStructureController::class)->except(['index', 'show']);
         Route::resource('institution-gallery', InstitutionGalleryController::class)->except(['index', 'show']);
+        Route::resource('social-media', SocialMediaController::class)->except(['index', 'show']); // Social Media
     });
 
 });
