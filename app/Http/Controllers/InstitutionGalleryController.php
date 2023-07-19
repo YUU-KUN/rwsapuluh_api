@@ -37,7 +37,7 @@ class InstitutionGalleryController extends Controller
     {
         $input = $request->all();
         if ($request->hasFile('image')) {
-            $filename = time() . '-' . $request->image->getClientOriginalName();
+            $filename = time() . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('gallery'), $filename);
             $input['image'] = $filename;
         }

@@ -43,7 +43,7 @@ class HistoryController extends Controller
     {
         $input = $request->all();
         if ($request->hasFile('photo')) {
-            $filename = time().'-'.$request->photo->getClientOriginalName();
+            $filename = time().'.'.$request->photo->getClientOriginalExtension();
             $request->photo->move(public_path('history'), $filename);
             $input['photo'] = $filename;
         }

@@ -42,7 +42,7 @@ class VideoController extends Controller
     {
         Video::truncate();
         $input = $request->all();
-        $filename = time().'-'.$request->video->getClientOriginalName();
+        $filename = time().'.'.$request->video->getClientOriginalExtension();
         $request->video->move(public_path('video'), $filename);
         $input['video'] = $filename;
         $video = Video::create($input);
@@ -90,7 +90,7 @@ class VideoController extends Controller
     {
         $input = $request->all();
         if ($request->hasFile('video')) {
-            $filename = time().'-'.$request->video->getClientOriginalName();
+            $filename = time().'.'.$request->video->getClientOriginalExtension();
             $request->video->move(public_path('video'), $filename);
             $input['video'] = $filename;
         } else {
