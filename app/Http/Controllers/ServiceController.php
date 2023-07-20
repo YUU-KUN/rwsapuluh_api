@@ -56,7 +56,11 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //
+        return response()->json([
+            'success' => true,
+            'message' => 'Success getting service',
+            'data' => $service
+        ]);
     }
 
     /**

@@ -10,5 +10,5 @@ class Service extends Model
 {
     use HasFactory, UUID;
     protected $table = 'services';
-    protected $fillable = ['service', 'description'];
+    protected $fillable = ['name', 'description'];
 }
