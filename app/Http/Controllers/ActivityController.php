@@ -76,8 +76,9 @@ class ActivityController extends Controller
      * @param  \App\Models\Activity  $activity
      * @return \Illuminate\Http\Response
      */
-    public function show(Activity $activity)
+    public function show(Activity $activity, $id)
     {
+        $activity = Activity::find($id);
         return response()->json([
             'data' => $activity,
             'message' => 'Berhasil mendapatkan detail kegiatan',
