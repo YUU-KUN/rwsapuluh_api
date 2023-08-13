@@ -79,7 +79,7 @@ Route::middleware('cors')->group(function() {
         Route::resource('category', CategoryController::class)->except(['index', 'show']);
         Route::resource('service', ServiceController::class)->except(['index', 'show']);
         Route::resource('message', MessageController::class)->except(['index', 'show']);
-        Route::resource('complaint', ComplaintController::class)->except(['index', 'show']);
+        Route::resource('complaint', ComplaintController::class)->except(['index', 'show', 'store']);
         Route::post('import-citizen', [CitizenController::class, 'import']);
         Route::resource('citizen', CitizenController::class)->except(['index', 'show']);
         Route::resource('vision', VisionController::class)->except(['index', 'show']);
