@@ -122,6 +122,17 @@ class ActivityController extends Controller
             $input['image'] = $activity->image;
         }
 
+        if (isset($input['category_ids']) && is_array($input['category_ids'])) {
+            // delete old activity category
+            ActivityCategory::where('activity_id', $activity->id)->delete();
+            foreach ($input['category_ids'] as $category_id) {
+                ActivityCategory::create([
+                    'activity_id' => $activity->id,
+                    'category_id' => $category_id
+                ]);
+            }
+        }
+
         $activity->update($input);
 
         return response()->json([
