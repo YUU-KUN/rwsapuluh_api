@@ -42,9 +42,9 @@ class VideoController extends Controller
     {
         Video::truncate();
         $input = $request->all();
-        $filename = time().'.'.$request->video->getClientOriginalExtension();
-        $request->video->move(public_path('video'), $filename);
-        $input['video'] = $filename;
+        // $filename = time().'.'.$request->video->getClientOriginalExtension();
+        // $request->video->move(public_path('video'), $filename);
+        // $input['video'] = $filename;
         $video = Video::create($input);
         return response()->json([
             'success' => true,
@@ -89,19 +89,19 @@ class VideoController extends Controller
     public function update(Request $request, Video $video)
     {
         $input = $request->all();
-        if ($request->hasFile('video')) {
-            $filename = time().'.'.$request->video->getClientOriginalExtension();
-            $request->video->move(public_path('video'), $filename);
-            $input['video'] = $filename;
-        } else {
-            $input['video'] = $video->video;
-        }
+        // if ($request->hasFile('video')) {
+        //     $filename = time().'.'.$request->video->getClientOriginalExtension();
+        //     $request->video->move(public_path('video'), $filename);
+        //     $input['video'] = $filename;
+        // } else {
+        //     $input['video'] = $video->video;
+        // }
 
         // delete old video
-        $oldVideo = public_path('video').'/'.$video->video;
-        if (file_exists($oldVideo)) {
-            unlink($oldVideo);
-        }
+        // $oldVideo = public_path('video').'/'.$video->video;
+        // if (file_exists($oldVideo)) {
+        //     unlink($oldVideo);
+        // }
 
         $video->update($input);
         return response()->json([
