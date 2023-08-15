@@ -22,6 +22,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SocialMediaController;
+use App\Http\Controllers\OrganizationImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,7 @@ Route::middleware('cors')->group(function() {
     Route::resource('institution-structure', InstitutionStructureController::class); // Institution Structure
     Route::resource('institution-gallery', InstitutionGalleryController::class); // Insittution Gallery
     Route::resource('social-media', SocialMediaController::class); // Social Media
+    Route::resource('organization-image', OrganizationImageController::class); // Social Media
     
     // Only SuperAdmin can Access
     Route::middleware(['auth:api', 'superadmin'])->group(function () {
@@ -78,7 +80,7 @@ Route::middleware('cors')->group(function() {
         Route::resource('video', VideoController::class)->except(['index', 'show']);
         Route::resource('category', CategoryController::class)->except(['index', 'show']);
         Route::resource('service', ServiceController::class)->except(['index', 'show']);
-        Route::resource('message', MessageController::class)->except(['index', 'show']);
+        Route::resource('message', MessageController::class)->except(['index', 'show', 'store']);
         Route::resource('complaint', ComplaintController::class)->except(['index', 'show', 'store']);
         Route::post('import-citizen', [CitizenController::class, 'import']);
         Route::resource('citizen', CitizenController::class)->except(['index', 'show']);
@@ -91,6 +93,7 @@ Route::middleware('cors')->group(function() {
         Route::resource('institution-structure', InstitutionStructureController::class)->except(['index', 'show']);
         Route::resource('institution-gallery', InstitutionGalleryController::class)->except(['index', 'show']);
         Route::resource('social-media', SocialMediaController::class)->except(['index', 'show']); // Social Media
+        Route::resource('organization-image', OrganizationImageController::class)->except(['index', 'show']); // Organization Image
     });
 
 });
