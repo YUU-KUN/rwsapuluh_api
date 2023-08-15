@@ -117,6 +117,17 @@ class AchievementController extends Controller
             $input['image'] = $achievement->image;
         }
 
+        if (isset($input['category_ids']) && is_array($input['category_ids'])) {
+            // delete old achievement category
+            AchievementCategory::where('achievement_id', $achievement->id)->delete();
+            foreach ($input['category_ids'] as $category_id) {
+                AchievementCategory::create([
+                    'achievement_id' => $achievement->id,
+                    'category_id' => $category_id
+                ]);
+            }
+        }
+
         $achievement->update($input);
         
         return response()->json([
