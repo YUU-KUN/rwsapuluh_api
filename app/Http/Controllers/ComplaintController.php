@@ -14,7 +14,7 @@ class ComplaintController extends Controller
      */
     public function index()
     {
-        $complaints = Complaint::get();
+        $complaints = Complaint::orderBy('created_at', 'desc')->get();
         return response()->json([
             'data' => $complaints,
             'message' => 'Berhasil mendapatkan data pengaduan',

@@ -14,7 +14,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $message = Message::get();
+        $message = Message::orderBy('created_at', 'desc')->get();
         return response()->json([
             'success' => true,
             'message' => 'Success getting message',
