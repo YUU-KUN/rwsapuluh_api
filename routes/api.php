@@ -23,6 +23,8 @@ use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SocialMediaController;
 use App\Http\Controllers\OrganizationImageController;
+use App\Http\Controllers\TestimonyController;
+use App\Http\Controllers\VisionImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +51,7 @@ Route::middleware('cors')->group(function() {
     Route::get('activity/{id}', [ActivityController::class, 'show']);
     Route::get('top-achievement', [AchievementController::class, 'getTopAchievement']);
     Route::get('citizen-statistic', [CitizenController::class, 'countCitizen']);
+    Route::get('banner', [ActivityController::class, 'getBanner']);
     
     Route::resource('achievement', AchievementController::class); // Achievement
     Route::resource('video', VideoController::class); // Video
@@ -58,15 +61,17 @@ Route::middleware('cors')->group(function() {
     Route::resource('complaint', ComplaintController::class); // Complaint
     Route::resource('citizen', CitizenController::class); // Citizen
     Route::resource('vision', VisionController::class); // Vision
+    Route::resource('vision-image', VisionImageController::class); // Vision Image
     Route::resource('mission', MissionController::class); // Mission
     Route::resource('history', HistoryController::class); // History
     Route::resource('contact', ContactController::class); // Contact
     Route::resource('organization', OrganizationController::class); // Organization
+    Route::resource('organization-image', OrganizationImageController::class); // Organization Image
     Route::resource('institution', InstitutionController::class); // Institution
     Route::resource('institution-structure', InstitutionStructureController::class); // Institution Structure
     Route::resource('institution-gallery', InstitutionGalleryController::class); // Insittution Gallery
     Route::resource('social-media', SocialMediaController::class); // Social Media
-    Route::resource('organization-image', OrganizationImageController::class); // Social Media
+    Route::resource('testimony', TestimonyController::class); // Testimony
     
     // Only SuperAdmin can Access
     Route::middleware(['auth:api', 'superadmin'])->group(function () {
@@ -85,15 +90,17 @@ Route::middleware('cors')->group(function() {
         Route::post('import-citizen', [CitizenController::class, 'import']);
         Route::resource('citizen', CitizenController::class)->except(['index', 'show']);
         Route::resource('vision', VisionController::class)->except(['index', 'show']);
+        Route::resource('vision-image', VisionImageController::class)->except(['index', 'show']); // Vision Image
         Route::resource('mission', MissionController::class)->except(['index', 'show']);
         Route::resource('history', HistoryController::class)->except(['index', 'show']);
         Route::resource('contact', ContactController::class)->except(['index', 'show']);
         Route::resource('organization', OrganizationController::class)->except(['index', 'show']);
+        Route::resource('organization-image', OrganizationImageController::class)->except(['index', 'show']); // Organization Image
         Route::resource('institution', InstitutionController::class)->except(['index', 'show']);
         Route::resource('institution-structure', InstitutionStructureController::class)->except(['index', 'show']);
         Route::resource('institution-gallery', InstitutionGalleryController::class)->except(['index', 'show']);
         Route::resource('social-media', SocialMediaController::class)->except(['index', 'show']); // Social Media
-        Route::resource('organization-image', OrganizationImageController::class)->except(['index', 'show']); // Organization Image
+        Route::resource('testimony', TestimonyController::class)->except(['index', 'show']); // Testimony
     });
 
 });
