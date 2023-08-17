@@ -121,6 +121,13 @@ class OrganizationImageController extends Controller
      */
     public function destroy(OrganizationImage $organizationImage)
     {
+        // delete old photo
+        $oldImage = $visionImage->image;
+        $oldImagePath = public_path('organization').'/'.$oldImage;
+        if (file_exists($oldImagePath)) {
+            File::delete($oldImagePath);
+        }
+
         $organizationImage->delete();
         return response()->json([
             'message' => 'Berhasil menghapus gambar organisasi',
