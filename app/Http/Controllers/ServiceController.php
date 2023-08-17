@@ -14,11 +14,12 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $service = Service::get();
+        // get services, sorted by created_at. the latest is in bottom
+        $services = Service::orderBy('created_at', 'asc')->get();
         return response()->json([
             'success' => true,
             'message' => 'Success getting service',
-            'data' => $service
+            'data' => $services
         ]);
     }
 
