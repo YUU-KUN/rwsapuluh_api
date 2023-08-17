@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\CitizenImport;
+use App\Exports\CitizenExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Citizen;
 use App\Models\Institution;
@@ -134,7 +135,11 @@ class CitizenController extends Controller
         ]);
     }
 
-public function countCitizen() {
+    public function export(Request $request) {
+        return Excel::download(new CitizenExport, 'Data Warga.xlsx');
+    }
+
+    public function countCitizen() {
         $citizen_total = Citizen::count();
         $rt_total = Citizen::pluck('rt')->unique()->count();
         $female_total = Citizen::where('gender', 'P')->orWhere('gender', 'p')->count();

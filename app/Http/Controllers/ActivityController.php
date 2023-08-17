@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\Achievement;
 use App\Models\ActivityImage;
 use App\Models\ActivityCategory;
 use Illuminate\Http\Request;
@@ -164,6 +165,29 @@ class ActivityController extends Controller
         return response()->json([
             'data' => $activity,
             'message' => 'Berhasil mendapatkan data kegiatan',
+            'success' => true
+        ]);
+    }
+
+    public function getBanner(Request $request) {
+        // get all from activities & achievements, then sort by created_at, limit 5, add label for each data
+        $activities = Activity::with('Categories.Category:id,name')->orderBy('created_at', 'desc')->get();
+        $achievements = Achievement::with('Categories.Category:id,name')->orderBy('created_at', 'desc')->get();
+        $achievements->map(function($item) {
+            $item['label'] = 'prestasi';
+            return $item;
+        });
+        $activities->map(function($item) {
+            $item['label'] = 'kegiatan';
+            return $item;
+        });
+        $data = $activities->merge($achievements);
+        $data = $data->sortByDesc('created_at')->take(5);
+
+        
+        return response()->json([
+            'data' => $data,
+            'message' => 'Berhasil mendapatkan data banner',
             'success' => true
         ]);
     }
