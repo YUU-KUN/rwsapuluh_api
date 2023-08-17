@@ -11,5 +11,5 @@ class Complaint extends Model
     use HasFactory, UUID;
     protected $table = 'complaints';
 
-    protected $fillable = ['name', 'email', 'phone', 'subject', 'message'];
+    protected $fillable = ['name', 'phone', 'message'];
 }

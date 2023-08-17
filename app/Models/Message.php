@@ -9,5 +9,5 @@ class Message extends Model
 {
     use HasFactory, UUID;
     protected $table = 'messages';
-    protected $fillable = ['name', 'email', 'phone', 'subject', 'message'];
+    protected $fillable = ['name', 'phone', 'message'];
 }
