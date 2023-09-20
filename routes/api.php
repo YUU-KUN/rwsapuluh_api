@@ -44,6 +44,7 @@ Route::middleware('cors')->group(function() {
     
     // Public can Access
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
     
     // Activity
     Route::get('top-activity', [ActivityController::class, 'getTopActivity']);
@@ -101,6 +102,6 @@ Route::middleware('cors')->group(function() {
         Route::resource('institution-gallery', InstitutionGalleryController::class)->except(['index', 'show']);
         Route::resource('social-media', SocialMediaController::class)->except(['index', 'show']); // Social Media
         Route::resource('testimony', TestimonyController::class)->except(['index', 'show']); // Testimony
+        Route::post('/reset-password', [AuthController::class, 'resetPassword']); // Reset Password
     });
-
 });
